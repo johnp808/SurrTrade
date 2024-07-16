@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="MarketItemTest" project="JPASurrTrade" tests="1" started="1" failures="0" errors="0" ignored="0">
-  <testsuite name="com.surrtrade.entities.MarketItemTest" time="0.047" displayname="MarketItemTest" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.MarketItemTest]">
-    <testcase name="test_marketItemname" classname="com.surrtrade.entities.MarketItemTest" time="0.047" displayname="test_marketItemname()" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.MarketItemTest]/[method:test_marketItemname()]"/>
-  </testsuite>
-</testrun>

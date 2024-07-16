@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="MessageTest" project="JPASurrTrade" tests="2" started="2" failures="0" errors="0" ignored="0">
-  <testsuite name="com.surrtrade.entities.MessageTest" time="0.041" displayname="MessageTest" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.MessageTest]">
-    <testcase name="test_message_messageContent" classname="com.surrtrade.entities.MessageTest" time="0.039" displayname="test_message_messageContent()" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.MessageTest]/[method:test_message_messageContent()]"/>
-    <testcase name="test_message_message_id" classname="com.surrtrade.entities.MessageTest" time="0.002" displayname="test_message_message_id()" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.MessageTest]/[method:test_message_message_id()]"/>
-  </testsuite>
-</testrun>

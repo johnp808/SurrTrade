@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="CommentTest" project="JPASurrTrade" tests="2" started="2" failures="0" errors="0" ignored="0">
-  <testsuite name="com.surrtrade.entities.CommentTest" time="0.049" displayname="CommentTest" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.CommentTest]">
-    <testcase name="test_comment_price" classname="com.surrtrade.entities.CommentTest" time="0.046" displayname="test_comment_price()" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.CommentTest]/[method:test_comment_price()]"/>
-    <testcase name="test_many_to_one_comments_to_user" classname="com.surrtrade.entities.CommentTest" time="0.003" displayname="test_many_to_one_comments_to_user()" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.CommentTest]/[method:test_many_to_one_comments_to_user()]"/>
-  </testsuite>
-</testrun>
