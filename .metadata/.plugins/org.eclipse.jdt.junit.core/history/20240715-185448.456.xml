@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="FeedPostTest.test_feedPost_updatedAt" project="JPASurrTrade" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testsuite name="com.surrtrade.entities.FeedPostTest" time="0.057" displayname="FeedPostTest" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.FeedPostTest]">
+    <testcase name="test_feedPost_updatedAt" classname="com.surrtrade.entities.FeedPostTest" time="0.057" displayname="test_feedPost_updatedAt()" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.FeedPostTest]/[method:test_feedPost_updatedAt()]"/>
+  </testsuite>
+</testrun>

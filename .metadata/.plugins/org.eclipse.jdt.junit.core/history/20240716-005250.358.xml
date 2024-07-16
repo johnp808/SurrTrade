@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="UserTest" project="JPASurrTrade" tests="5" started="5" failures="0" errors="0" ignored="0">
+  <testsuite name="com.surrtrade.entities.UserTest" time="0.066" displayname="UserTest" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.UserTest]">
+    <testcase name="test_username" classname="com.surrtrade.entities.UserTest" time="0.042" displayname="test_username()" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.UserTest]/[method:test_username()]"/>
+    <testcase name="test_status" classname="com.surrtrade.entities.UserTest" time="0.003" displayname="test_status()" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.UserTest]/[method:test_status()]"/>
+    <testcase name="test_password" classname="com.surrtrade.entities.UserTest" time="0.002" displayname="test_password()" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.UserTest]/[method:test_password()]"/>
+    <testcase name="test_one_to_many_user_comments" classname="com.surrtrade.entities.UserTest" time="0.01" displayname="test_one_to_many_user_comments()" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.UserTest]/[method:test_one_to_many_user_comments()]"/>
+    <testcase name="test_one_to_many_market_items" classname="com.surrtrade.entities.UserTest" time="0.009" displayname="test_one_to_many_market_items()" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.UserTest]/[method:test_one_to_many_market_items()]"/>
+  </testsuite>
+</testrun>

@@ -1,0 +1,55 @@
+package com.surrtrade.entities;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+
+class MarketItemTest {
+
+	private static EntityManagerFactory emf;
+	private EntityManager em;
+	private MarketItem marketItem;
+
+	@BeforeAll
+	static void setUpBeforeClass() throws Exception {
+		emf = Persistence.createEntityManagerFactory("JPASurrTrade");
+	}
+
+	@AfterAll
+	static void tearDownAfterClass() throws Exception {
+		emf.close();
+	}
+
+	@BeforeEach
+	void setUp() throws Exception {
+		em = emf.createEntityManager();
+		marketItem = em.find(MarketItem.class, 1);
+	}
+
+	@AfterEach
+	void tearDown() throws Exception {
+		em.close();
+		marketItem = null;
+	}
+
+	@Test
+	void test_marketItem_price() {
+		assertNotNull(marketItem);
+		assertEquals(30.00, marketItem.getPrice());
+	}
+	
+	@Test
+	void test_marketItem() {
+		assertNotNull(marketItem);
+		assertEquals("Jetson Bolt Pro OEM Seat and Post | Selling a OEM seat and post for the Jetson Bolt Pro. Used Twice."), marketItem.getTitle());
+	}
+	
+}

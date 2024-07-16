@@ -1,0 +1,5 @@
+package com.surrtrade.entities;
+
+public class FeedPostLike {
+
+}

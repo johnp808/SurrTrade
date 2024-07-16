@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="FeedPostPictureTest" project="JPASurrTrade" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testsuite name="com.surrtrade.entities.FeedPostPictureTest" time="0.041" displayname="FeedPostPictureTest" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.FeedPostPictureTest]">
+    <testcase name="test_feedPostPicture_feedPostPictureContent" classname="com.surrtrade.entities.FeedPostPictureTest" time="0.041" displayname="test_feedPostPicture_feedPostPictureContent()" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.FeedPostPictureTest]/[method:test_feedPostPicture_feedPostPictureContent()]"/>
+  </testsuite>
+</testrun>

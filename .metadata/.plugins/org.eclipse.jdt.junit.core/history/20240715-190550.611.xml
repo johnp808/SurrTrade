@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="FeedPostLikeTest" project="JPASurrTrade" tests="2" started="2" failures="0" errors="0" ignored="0">
+  <testsuite name="com.surrtrade.entities.FeedPostLikeTest" time="0.055" displayname="FeedPostLikeTest" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.FeedPostLikeTest]">
+    <testcase name="test_feedPostLike_feedPostLikeContent" classname="com.surrtrade.entities.FeedPostLikeTest" time="0.051" displayname="test_feedPostLike_feedPostLikeContent()" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.FeedPostLikeTest]/[method:test_feedPostLike_feedPostLikeContent()]"/>
+    <testcase name="test_feedPostLike_updatedAt" classname="com.surrtrade.entities.FeedPostLikeTest" time="0.004" displayname="test_feedPostLike_updatedAt()" uniqueid="[engine:junit-jupiter]/[class:com.surrtrade.entities.FeedPostLikeTest]/[method:test_feedPostLike_updatedAt()]"/>
+  </testsuite>
+</testrun>

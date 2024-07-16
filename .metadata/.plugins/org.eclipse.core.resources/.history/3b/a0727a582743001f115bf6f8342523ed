@@ -1,0 +1,10 @@
+package com.surrtrade.entities;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="market_item")
+public class MarketItem {
+
+}
