@@ -40,6 +40,18 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private Set<FeedPost> feedPosts;
 	
+	@OneToMany(mappedBy = "user")
+	private Set<FeedPostLike> feedPostsLikes;
+	
+	@OneToMany(mappedBy = "sender")
+	private Set<Message> messages;
+
+	@OneToMany(mappedBy = "initiator")
+	private Set<Conversation> initiatedConvo;
+	
+	@OneToMany(mappedBy = "receiver")
+	private Set<Conversation> receivedConvo;
+	
 	@Column(name="created_at")
 	private LocalDateTime createdAt;
 	
@@ -135,6 +147,38 @@ public class User {
 		this.feedPosts = feedPosts;
 	}
 
+	public Set<FeedPostLike> getFeedPostsLikes() {
+		return feedPostsLikes;
+	}
+
+	public void setFeedPostsLikes(Set<FeedPostLike> feedPostsLikes) {
+		this.feedPostsLikes = feedPostsLikes;
+	}
+
+	public Set<Message> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(Set<Message> messages) {
+		this.messages = messages;
+	}
+
+	public Set<Conversation> getInitiatedConvo() {
+		return initiatedConvo;
+	}
+
+	public void setInitiatedConvo(Set<Conversation> initiatedConvo) {
+		this.initiatedConvo = initiatedConvo;
+	}
+
+	public Set<Conversation> getReceivedConvo() {
+		return receivedConvo;
+	}
+
+	public void setReceivedConvo(Set<Conversation> receivedConvo) {
+		this.receivedConvo = receivedConvo;
+	}
+
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
@@ -177,8 +221,8 @@ public class User {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(bikePicture, createdAt, email, id, lastLogin, password, primaryBike, role, status,
-				updatedAt, userPicture, username);
+		return Objects.hash(bikePicture, createdAt, email, id, lastLogin, password, primaryBike, receivedConvo, role,
+				status, updatedAt, userPicture, username);
 	}
 
 	@Override
@@ -193,9 +237,9 @@ public class User {
 		return Objects.equals(bikePicture, other.bikePicture) && Objects.equals(createdAt, other.createdAt)
 				&& Objects.equals(email, other.email) && id == other.id && Objects.equals(lastLogin, other.lastLogin)
 				&& Objects.equals(password, other.password) && Objects.equals(primaryBike, other.primaryBike)
-				&& Objects.equals(role, other.role) && Objects.equals(status, other.status)
-				&& Objects.equals(updatedAt, other.updatedAt) && Objects.equals(userPicture, other.userPicture)
-				&& Objects.equals(username, other.username);
+				&& Objects.equals(receivedConvo, other.receivedConvo) && Objects.equals(role, other.role)
+				&& Objects.equals(status, other.status) && Objects.equals(updatedAt, other.updatedAt)
+				&& Objects.equals(userPicture, other.userPicture) && Objects.equals(username, other.username);
 	}
 
 	@Override

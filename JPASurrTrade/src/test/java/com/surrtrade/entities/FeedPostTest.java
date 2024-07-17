@@ -45,6 +45,11 @@ class FeedPostTest {
 		assertNotNull(feedPost);
 		assertEquals("Ride Around Magic Island Ala Moana", feedPost.getFeedcontent());
 	}
+	@Test
+	void test_many_to_one_users_feedPost() {
+		assertNotNull(feedPost);
+		assertEquals("john@john.com", feedPost.getUser().getEmail());
+	}
 	
 	@Test
 	void test_feedPost_updatedAt() {

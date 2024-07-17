@@ -55,4 +55,10 @@ class FeedPostLikeTest {
 		assertEquals(14, feedPostLike.getLikedAt().getHour());
 		assertEquals(45, feedPostLike.getLikedAt().getMinute());
 	}
+	
+	@Test
+	void test_feedPostLike_many_to_one_user() {
+		assertNotNull(feedPostLike);
+		assertEquals("Mac", feedPostLike.getUser().getUsername());
+	}
 }

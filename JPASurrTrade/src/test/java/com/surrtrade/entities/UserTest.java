@@ -2,7 +2,10 @@ package com.surrtrade.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -15,6 +18,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 public class UserTest {
+	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
 	private User user;
@@ -61,7 +65,7 @@ public class UserTest {
 	
 	@Test
 	void test_one_to_many_user_comments() {
-		assertNotNull(user);
+		assertNotNull(user.getComments());
 		assertEquals(1, user.getComments().size());
 		Comment firstComment = user.getComments().iterator().next();
 		assertNotNull(firstComment);
@@ -69,8 +73,8 @@ public class UserTest {
 	}
 	
 	@Test
-	void test_one_to_many_market_items() {
-		assertNotNull(user);
+	void test_one_to_many_user_market_items() {
+		assertNotNull(user.getMarketItems());
 		assertEquals(1, user.getMarketItems().size());
 		MarketItem firstItem = user.getMarketItems().iterator().next();
 		assertNotNull(firstItem);
@@ -78,11 +82,59 @@ public class UserTest {
 	}
 	
 	@Test
-	void test_one_to_many_feed_posts() {
-		assertNotNull(user);
+	void test_one_to_many_user_feed_posts() {
+		assertNotNull(user.getFeedPosts());
 		assertEquals(1, user.getFeedPosts().size());
 		FeedPost firstPost = user.getFeedPosts().iterator().next();
 		assertNotNull(firstPost);
 		assertEquals("Ride Around Magic Island Ala Moana",firstPost.getFeedcontent());
+	}
+	
+	@Test
+	void test_one_to_many_user_feed_post_like() {
+		// user 1 does not have data yet
+		user = em.find(User.class, 2);
+		assertNotNull(user.getFeedPostsLikes());
+		assertEquals(1, user.getFeedPostsLikes().size());
+		FeedPostLike firstFeedPostLike = user.getFeedPostsLikes().iterator().next();
+		assertNotNull(firstFeedPostLike);
+		assertEquals(2024,firstFeedPostLike.getLikedAt().getYear());
+		assertEquals(15,firstFeedPostLike.getLikedAt().getDayOfMonth());
+		assertEquals(7,firstFeedPostLike.getLikedAt().getMonthValue());
+	}
+	
+	@Test
+	void test_one_to_many_user_messages() {
+		assertNotNull(user.getMessages());
+		assertEquals(1, user.getMessages().size());
+		Message firstMessage = user.getMessages().iterator().next();
+		assertNotNull(firstMessage);
+		assertEquals("How's it going?",firstMessage.getMessageContent());
+		// just a further check
+		user = em.find(User.class, 2);
+		Message user2Message = user.getMessages().iterator().next();
+		assertEquals("Good, do you still have that 48v battery for sale?",user2Message.getMessageContent());
+	}
+	
+	@Test
+	void test_one_to_many_user_sender_conversations() {
+		assertNotNull(user.getInitiatedConvo());
+		assertEquals(1, user.getInitiatedConvo().size());
+		Conversation firstConvo = user.getInitiatedConvo().iterator().next();
+		List<Message> sortedMessages =new ArrayList<>(firstConvo.getMessages());
+		Collections.sort(sortedMessages);
+		assertEquals("How's it going?", sortedMessages.get(0).getMessageContent());
+	}
+	
+	@Test
+	void test_one_to_many_user_receiver_conversations() {
+		//receiver of test_one_to_many_user_sender_conversations conversation
+		user = em.find(User.class, 2);
+		assertNotNull(user.getReceivedConvo());
+		assertEquals(1, user.getReceivedConvo().size());
+		Conversation firstConvo = user.getReceivedConvo().iterator().next();
+		List<Message> sortedMessages = new ArrayList<>(firstConvo.getMessages());
+		Collections.sort(sortedMessages);
+		assertEquals("How's it going?", sortedMessages.get(0).getMessageContent());
 	}
 }

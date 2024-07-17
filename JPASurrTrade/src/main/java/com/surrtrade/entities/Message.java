@@ -8,9 +8,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Message {
+public class Message implements Comparable<Message> {
 
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -24,6 +26,14 @@ public class Message {
 	private LocalDateTime createdAt;
 	
 	private boolean seen;
+	
+	@ManyToOne
+	@JoinColumn(name="sender_id")
+	private User sender;
+	
+	@ManyToOne
+	@JoinColumn(name="conversation_id")
+	private Conversation conversation;
 
 	public int getId() {
 		return id;
@@ -57,6 +67,27 @@ public class Message {
 		this.seen = seen;
 	}
 
+	public User getSender() {
+		return sender;
+	}
+
+	public void setSender(User sender) {
+		this.sender = sender;
+	}
+
+	public Conversation getConversation() {
+		return conversation;
+	}
+
+	public void setConversation(Conversation conversation) {
+		this.conversation = conversation;
+	}
+
+	@Override
+	public int compareTo(Message otherMessage) {
+		return this.createdAt.compareTo(otherMessage.createdAt);
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(createdAt, id, messageContent, seen);
