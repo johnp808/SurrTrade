@@ -58,4 +58,24 @@ class FeedPostTest {
 		assertEquals(7, feedPost.getUpdatedAt().getMonth().getValue());
 		assertEquals("MONDAY", feedPost.getUpdatedAt().getDayOfWeek().name());
 	}
+	
+	@Test
+	void test_feedPost_one_to_many_post_to_comments() {
+		assertNotNull(feedPost);
+		assertEquals("Hey I can Join!", feedPost.getPostComments().iterator().next().getCommentContent());
+	}
+	
+	@Test
+	void test_feedPost_one_to_many_post_to_post_pictures() {
+		assertNotNull(feedPost);
+		assertEquals("www.examplepic.com", feedPost.getFeedPostPics().iterator().next().getPictureUrl());
+	}
+	
+	@Test
+	void test_feedPost_one_to_many_post_to_post_likes() {
+		assertNotNull(feedPost);
+		assertEquals(7, feedPost.getFeedPostLikes().iterator().next().getLikedAt().getMonthValue());
+		assertEquals(15, feedPost.getFeedPostLikes().iterator().next().getLikedAt().getDayOfMonth());
+		assertEquals(2024, feedPost.getFeedPostLikes().iterator().next().getLikedAt().getYear());
+	}
 }

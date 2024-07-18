@@ -27,6 +27,10 @@ public class FeedPostLike {
 	@JoinColumn(name="user_id")
 	private User user;
 	
+	@ManyToOne
+	@JoinColumn(name="feed_post_id")
+	private FeedPost feedPost;
+	
 	public int getId() {
 		return id;
 	}
@@ -49,6 +53,14 @@ public class FeedPostLike {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public FeedPost getFeedPost() {
+		return feedPost;
+	}
+
+	public void setFeedPost(FeedPost feedPost) {
+		this.feedPost = feedPost;
 	}
 
 	@Override

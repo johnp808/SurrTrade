@@ -45,5 +45,10 @@ class FeedPostPictureTest {
 		assertNotNull(feedPostPicture);
 		assertEquals("www.examplepic.com", feedPostPicture.getPictureUrl());
 	}
-
+	
+	@Test
+	void test_feedPostPicture_many_to_one_feed_post() {
+		assertNotNull(feedPostPicture);
+		assertEquals("Ride Around Magic Island Ala Moana", feedPostPicture.getFeedPost().getFeedcontent());
+	}
 }

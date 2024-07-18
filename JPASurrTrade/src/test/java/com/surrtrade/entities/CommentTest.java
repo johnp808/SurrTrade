@@ -52,4 +52,10 @@ class CommentTest {
 		assertEquals("password", comment.getUser().getPassword());
 		assertEquals("Mac", comment.getUser().getUsername());
 	}
+	
+	@Test
+	void test_many_to_one_comments_to_feed_post() {
+		assertNotNull(comment);
+		assertEquals("Ride Around Magic Island Ala Moana", comment.getFeedPost().getFeedcontent());
+	}
 }

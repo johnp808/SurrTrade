@@ -30,7 +30,7 @@ public class Comment {
 	
 	@ManyToOne
 	@JoinColumn(name="feed_post_id")
-	private FeedPost post;
+	private FeedPost feedPost;
 	
 	public int getId() {
 		return id;
@@ -64,12 +64,12 @@ public class Comment {
 		this.user = user;
 	}
 
-	public FeedPost getPost() {
-		return post;
+	public FeedPost getFeedPost() {
+		return feedPost;
 	}
 
-	public void setPost(FeedPost post) {
-		this.post = post;
+	public void setFeedPost(FeedPost feedPost) {
+		this.feedPost = feedPost;
 	}
 
 	@Override

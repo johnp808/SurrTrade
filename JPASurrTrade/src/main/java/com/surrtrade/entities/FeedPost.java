@@ -2,6 +2,7 @@ package com.surrtrade.entities;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -33,6 +35,15 @@ public class FeedPost {
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
+	
+	@OneToMany(mappedBy="feedPost")
+	private Set<Comment> postComments;
+	
+	@OneToMany(mappedBy="feedPost")
+	private Set<FeedPostPicture> feedPostPics;
+	
+	@OneToMany(mappedBy="feedPost")
+	private Set<FeedPostLike> feedPostLikes;
 
 	public int getId() {
 		return id;
@@ -72,6 +83,30 @@ public class FeedPost {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Set<Comment> getPostComments() {
+		return postComments;
+	}
+
+	public void setPostComments(Set<Comment> postComments) {
+		this.postComments = postComments;
+	}
+
+	public Set<FeedPostPicture> getFeedPostPics() {
+		return feedPostPics;
+	}
+
+	public void setFeedPostPics(Set<FeedPostPicture> feedPostPics) {
+		this.feedPostPics = feedPostPics;
+	}
+
+	public Set<FeedPostLike> getFeedPostLikes() {
+		return feedPostLikes;
+	}
+
+	public void setFeedPostLikes(Set<FeedPostLike> feedPostLikes) {
+		this.feedPostLikes = feedPostLikes;
 	}
 
 	@Override

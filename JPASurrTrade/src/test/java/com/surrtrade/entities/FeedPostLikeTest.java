@@ -61,4 +61,10 @@ class FeedPostLikeTest {
 		assertNotNull(feedPostLike);
 		assertEquals("Mac", feedPostLike.getUser().getUsername());
 	}
+	
+	@Test
+	void test_feedPostLike_many_to_one_feed_post() {
+		assertNotNull(feedPostLike);
+		assertEquals("Ride Around Magic Island Ala Moana", feedPostLike.getFeedPost().getFeedcontent());
+	}
 }

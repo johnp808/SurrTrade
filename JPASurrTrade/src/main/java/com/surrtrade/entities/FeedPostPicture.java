@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,6 +25,10 @@ public class FeedPostPicture {
 	
 	@Column(name="created_at")
 	private LocalDateTime createdAt;
+	
+	@ManyToOne
+	@JoinColumn(name="feed_post_id")
+	private FeedPost feedPost;
 
 	public int getId() {
 		return id;
@@ -46,6 +52,14 @@ public class FeedPostPicture {
 
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public FeedPost getFeedPost() {
+		return feedPost;
+	}
+
+	public void setFeedPost(FeedPost feedPost) {
+		this.feedPost = feedPost;
 	}
 
 	@Override
