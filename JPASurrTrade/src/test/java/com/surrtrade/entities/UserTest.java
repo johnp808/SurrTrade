@@ -2,6 +2,7 @@ package com.surrtrade.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -106,7 +107,7 @@ public class UserTest {
 	@Test
 	void test_one_to_many_user_messages() {
 		assertNotNull(user.getMessages());
-		assertEquals(1, user.getMessages().size());
+		assertEquals(2, user.getMessages().size());
 		Message firstMessage = user.getMessages().iterator().next();
 		assertNotNull(firstMessage);
 		assertEquals("How's it going?",firstMessage.getMessageContent());
@@ -136,5 +137,14 @@ public class UserTest {
 		List<Message> sortedMessages = new ArrayList<>(firstConvo.getMessages());
 		Collections.sort(sortedMessages);
 		assertEquals("How's it going?", sortedMessages.get(0).getMessageContent());
+	}
+	
+	@Test
+	void test_one_to_many_user_saved_market_item() {
+		assertNotNull(user.getSavedMarketItems());
+		System.out.println(user.getSavedMarketItems().size());
+		assertEquals(1,user.getSavedMarketItems().size());
+		UserFavoriteMarketItem firstItem = user.getSavedMarketItems().iterator().next();
+		assertEquals("Surron Front Shocks", firstItem.getMarketItem().getTitle());
 	}
 }

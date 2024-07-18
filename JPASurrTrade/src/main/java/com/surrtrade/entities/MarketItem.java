@@ -2,6 +2,7 @@ package com.surrtrade.entities;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -43,6 +45,9 @@ public class MarketItem {
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
+	
+	@OneToMany(mappedBy="marketItem")
+	private Set<UserFavoriteMarketItem> savedByUsers;
 
 	public int getId() {
 		return id;
@@ -122,6 +127,14 @@ public class MarketItem {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Set<UserFavoriteMarketItem> getSavedByUsers() {
+		return savedByUsers;
+	}
+
+	public void setSavedByUsers(Set<UserFavoriteMarketItem> savedByUsers) {
+		this.savedByUsers = savedByUsers;
 	}
 
 	@Override

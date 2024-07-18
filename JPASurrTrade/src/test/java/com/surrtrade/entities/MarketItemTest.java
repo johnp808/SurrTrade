@@ -60,4 +60,11 @@ class MarketItemTest {
 		assertEquals("Jetson Bolt Pro OEM Seat and Post", marketItem.getTitle());
 	}
 	
+	@Test
+	void test_marketItem_one_to_many_market_item_to_user_favorite_market_item() {
+		assertNotNull(marketItem);
+		assertEquals(1, marketItem.getSavedByUsers().size());
+		assertEquals("Jetson Bolt Pro OEM Seat and Post", marketItem.getSavedByUsers().iterator().next().getMarketItem().getTitle());
+		
+	}
 }

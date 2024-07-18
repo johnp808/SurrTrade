@@ -17,7 +17,7 @@ public class Conversation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@ManyToOne
 	@JoinColumn(name="user1_id")
 	private User initiator;

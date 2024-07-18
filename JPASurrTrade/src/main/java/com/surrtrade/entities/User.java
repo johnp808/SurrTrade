@@ -52,6 +52,9 @@ public class User {
 	@OneToMany(mappedBy = "receiver")
 	private Set<Conversation> receivedConvo;
 	
+	@OneToMany(mappedBy = "user")
+	private Set<UserFavoriteMarketItem> savedMarketItems;
+	
 	@Column(name="created_at")
 	private LocalDateTime createdAt;
 	
@@ -177,6 +180,14 @@ public class User {
 
 	public void setReceivedConvo(Set<Conversation> receivedConvo) {
 		this.receivedConvo = receivedConvo;
+	}
+
+	public Set<UserFavoriteMarketItem> getSavedMarketItems() {
+		return savedMarketItems;
+	}
+
+	public void setSavedMarketItems(Set<UserFavoriteMarketItem> savedMarketItems) {
+		this.savedMarketItems = savedMarketItems;
 	}
 
 	public LocalDateTime getCreatedAt() {
