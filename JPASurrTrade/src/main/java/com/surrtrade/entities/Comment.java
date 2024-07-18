@@ -27,7 +27,11 @@ public class Comment {
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
-
+	
+	@ManyToOne
+	@JoinColumn(name="feed_post_id")
+	private FeedPost post;
+	
 	public int getId() {
 		return id;
 	}
@@ -58,6 +62,14 @@ public class Comment {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public FeedPost getPost() {
+		return post;
+	}
+
+	public void setPost(FeedPost post) {
+		this.post = post;
 	}
 
 	@Override
