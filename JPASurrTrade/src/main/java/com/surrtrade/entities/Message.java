@@ -3,6 +3,8 @@ package com.surrtrade.entities;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,12 +31,16 @@ public class Message implements Comparable<Message> {
 	
 	@ManyToOne
 	@JoinColumn(name="sender_id")
+    @JsonBackReference
 	private User sender;
 	
 	@ManyToOne
 	@JoinColumn(name="conversation_id")
+    @JsonBackReference
 	private Conversation conversation;
 
+	public Message() {}
+	
 	public int getId() {
 		return id;
 	}

@@ -49,7 +49,7 @@ class CommentTest {
 	@Test
 	void test_many_to_one_comments_to_user() {
 		assertNotNull(comment);
-		assertEquals("password", comment.getUser().getPassword());
+//		assertEquals("password", comment.getUser().getPassword()); using B Encrypt now
 		assertEquals("Mac", comment.getUser().getUsername());
 	}
 	

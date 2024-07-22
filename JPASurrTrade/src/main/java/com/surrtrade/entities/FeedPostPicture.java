@@ -3,6 +3,8 @@ package com.surrtrade.entities;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,8 +30,11 @@ public class FeedPostPicture {
 	
 	@ManyToOne
 	@JoinColumn(name="feed_post_id")
+    @JsonBackReference
 	private FeedPost feedPost;
 
+	public FeedPostPicture() {}
+	
 	public int getId() {
 		return id;
 	}

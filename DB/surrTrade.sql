@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `last_login` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `bike_picture` VARCHAR(2083) NULL DEFAULT NULL,
   `user_picture` VARCHAR(2083) NULL DEFAULT NULL,
+  `enabled` TINYINT NULL DEFAULT 1,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 2
@@ -244,8 +245,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `surrtrade`;
-INSERT INTO `user` (`id`, `username`, `email`, `password`, `primary_bike`, `status`, `role`, `created_at`, `updated_at`, `last_login`, `bike_picture`, `user_picture`) VALUES (1, 'John', 'john@john.com', 'password', 'Jetson Bolt Pro', 'online', 'admin', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `user` (`id`, `username`, `email`, `password`, `primary_bike`, `status`, `role`, `created_at`, `updated_at`, `last_login`, `bike_picture`, `user_picture`) VALUES (2, 'Mac', 'mac@mac.com', 'password', 'Surron Bee', 'offline', 'registered', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `email`, `password`, `primary_bike`, `status`, `role`, `created_at`, `updated_at`, `last_login`, `bike_picture`, `user_picture`, `enabled`) VALUES (1, 'John', 'john@john.com', '$2a$12$z1DIljqDnOMxK1bBiq5njemZgWG6PxUROmGWiS3cSsdndM00ItCYi', 'Jetson Bolt Pro', 'online', 'admin', NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `user` (`id`, `username`, `email`, `password`, `primary_bike`, `status`, `role`, `created_at`, `updated_at`, `last_login`, `bike_picture`, `user_picture`, `enabled`) VALUES (2, 'Mac', 'mac@mac.com', '$2a$12$z1DIljqDnOMxK1bBiq5njemZgWG6PxUROmGWiS3cSsdndM00ItCYi', 'Surron Bee', 'offline', 'registered', NULL, NULL, NULL, NULL, NULL, 1);
 
 COMMIT;
 

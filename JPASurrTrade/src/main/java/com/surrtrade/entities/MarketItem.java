@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,11 +47,16 @@ public class MarketItem {
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
+    @JsonBackReference
 	private User user;
 	
 	@OneToMany(mappedBy="marketItem")
+    @JsonManagedReference
 	private Set<UserFavoriteMarketItem> savedByUsers;
 
+	
+	public MarketItem() {}
+	
 	public int getId() {
 		return id;
 	}

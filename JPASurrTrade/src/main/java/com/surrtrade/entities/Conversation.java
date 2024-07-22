@@ -3,6 +3,9 @@ package com.surrtrade.entities;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,15 +23,20 @@ public class Conversation {
 
 	@ManyToOne
 	@JoinColumn(name="user1_id")
+    @JsonBackReference
 	private User initiator;
 	
 	@ManyToOne
 	@JoinColumn(name="user2_id")
+	@JsonBackReference
 	private User receiver;
 
 	@OneToMany(mappedBy = "conversation")
+    @JsonManagedReference
 	private Set<Message> messages;
 
+	public Conversation() {}
+	
 	public int getId() {
 		return id;
 	}

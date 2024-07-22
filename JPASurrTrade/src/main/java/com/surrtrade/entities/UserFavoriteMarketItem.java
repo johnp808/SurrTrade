@@ -2,6 +2,8 @@ package com.surrtrade.entities;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -19,12 +21,16 @@ public class UserFavoriteMarketItem {
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
+	@JsonBackReference
 	private User user;
 	
 	@ManyToOne
 	@JoinColumn(name="market_item_id")
+    @JsonBackReference
 	private MarketItem marketItem;
 
+	public UserFavoriteMarketItem() {}
+	
 	public int getId() {
 		return id;
 	}
