@@ -20,6 +20,10 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public User register(User user) {
+		if (userRepo.findByUsername(user.getUsername()) != null) {
+			throw new RuntimeException("Username already exists");
+			}
+		   
 		String encryptedPassword = encoder.encode(user.getPassword());
 		user.setPassword(encryptedPassword);
 		user.setRole("registered");

@@ -33,40 +33,6 @@ public class User {
 	
 	private String role;
 	
-	private boolean enabled;
-	
-	@OneToMany(mappedBy = "user")
-    @JsonManagedReference
-	private Set<Comment> comments;
-	
-	@OneToMany(mappedBy = "user")
-    @JsonManagedReference
-	private Set<MarketItem> marketItems;
-	
-	@OneToMany(mappedBy = "user")
-    @JsonManagedReference
-	private Set<FeedPost> feedPosts;
-	
-	@OneToMany(mappedBy = "user")
-    @JsonManagedReference
-	private Set<FeedPostLike> feedPostsLikes;
-	
-	@OneToMany(mappedBy = "sender")
-    @JsonManagedReference
-	private Set<Message> messages;
-
-	@OneToMany(mappedBy = "initiator")
-    @JsonManagedReference
-	private Set<Conversation> initiatedConvo;
-	
-	@OneToMany(mappedBy = "receiver")
-    @JsonManagedReference
-	private Set<Conversation> receivedConvo;
-	
-	@OneToMany(mappedBy = "user")
-    @JsonManagedReference
-	private Set<UserFavoriteMarketItem> savedMarketItems;
-	
 	@Column(name="created_at")
 	private LocalDateTime createdAt;
 	
@@ -81,7 +47,41 @@ public class User {
 	
 	@Column(name="user_picture")
 	private String userPicture;
+	
+	private boolean enabled;
+	
+	@OneToMany(mappedBy = "user")
+    @JsonManagedReference("user-comments")
+	private Set<Comment> comments;
+	
+	@OneToMany(mappedBy = "user")
+    @JsonManagedReference("user-marketItems")
+	private Set<MarketItem> marketItems;
+	
+	@OneToMany(mappedBy = "user")
+    @JsonManagedReference("user-feedPosts")
+	private Set<FeedPost> feedPosts;
+	
+	@OneToMany(mappedBy = "user")
+    @JsonManagedReference("user-feedPostLikes")
+	private Set<FeedPostLike> feedPostsLikes;
+	
+	@OneToMany(mappedBy = "sender")
+    @JsonManagedReference("user-messages")
+	private Set<Message> messages;
 
+	@OneToMany(mappedBy = "initiator")
+    @JsonManagedReference("user-initiatedConvos")
+	private Set<Conversation> initiatedConvos;
+	
+	@OneToMany(mappedBy = "receiver")
+    @JsonManagedReference("user-receivedConvos")
+	private Set<Conversation> receivedConvos;
+	
+	@OneToMany(mappedBy = "user")
+    @JsonManagedReference("user-savedMarketItems")
+	private Set<UserFavoriteMarketItem> savedMarketItems;
+	
 	public User() {}
 	
 	public int getId() {
@@ -147,7 +147,47 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+	
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
 
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public LocalDateTime getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(LocalDateTime lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+	public String getBikePicture() {
+		return bikePicture;
+	}
+
+	public void setBikePicture(String bikePicture) {
+		this.bikePicture = bikePicture;
+	}
+
+	public String getUserPicture() {
+		return userPicture;
+	}
+
+	public void setUserPicture(String userPicture) {
+		this.userPicture = userPicture;
+	}
+	
 	public Set<Comment> getComments() {
 		return comments;
 	}
@@ -188,20 +228,20 @@ public class User {
 		this.messages = messages;
 	}
 
-	public Set<Conversation> getInitiatedConvo() {
-		return initiatedConvo;
+	public Set<Conversation> getInitiatedConvos() {
+		return initiatedConvos;
 	}
 
-	public void setInitiatedConvo(Set<Conversation> initiatedConvo) {
-		this.initiatedConvo = initiatedConvo;
+	public void setInitiatedConvos(Set<Conversation> initiatedConvos) {
+		this.initiatedConvos = initiatedConvos;
 	}
 
-	public Set<Conversation> getReceivedConvo() {
-		return receivedConvo;
+	public Set<Conversation> getReceivedConvos() {
+		return receivedConvos;
 	}
 
-	public void setReceivedConvo(Set<Conversation> receivedConvo) {
-		this.receivedConvo = receivedConvo;
+	public void setReceivedConvos(Set<Conversation> receivedConvos) {
+		this.receivedConvos = receivedConvos;
 	}
 
 	public Set<UserFavoriteMarketItem> getSavedMarketItems() {
@@ -212,50 +252,10 @@ public class User {
 		this.savedMarketItems = savedMarketItems;
 	}
 
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	public LocalDateTime getLastLogin() {
-		return lastLogin;
-	}
-
-	public void setLastLogin(LocalDateTime lastLogin) {
-		this.lastLogin = lastLogin;
-	}
-
-	public String getBikePicture() {
-		return bikePicture;
-	}
-
-	public void setBikePicture(String bikePicture) {
-		this.bikePicture = bikePicture;
-	}
-
-	public String getUserPicture() {
-		return userPicture;
-	}
-
-	public void setUserPicture(String userPicture) {
-		this.userPicture = userPicture;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(bikePicture, createdAt, email, enabled, id, initiatedConvo, lastLogin, password,
-				primaryBike, receivedConvo, role, status, updatedAt, userPicture, username);
+		return Objects.hash(bikePicture, createdAt, email, enabled, id, initiatedConvos, lastLogin, password,
+				primaryBike, receivedConvos, role, status, updatedAt, userPicture, username);
 	}
 
 	@Override
@@ -269,9 +269,9 @@ public class User {
 		User other = (User) obj;
 		return Objects.equals(bikePicture, other.bikePicture) && Objects.equals(createdAt, other.createdAt)
 				&& Objects.equals(email, other.email) && enabled == other.enabled && id == other.id
-				&& Objects.equals(initiatedConvo, other.initiatedConvo) && Objects.equals(lastLogin, other.lastLogin)
+				&& Objects.equals(initiatedConvos, other.initiatedConvos) && Objects.equals(lastLogin, other.lastLogin)
 				&& Objects.equals(password, other.password) && Objects.equals(primaryBike, other.primaryBike)
-				&& Objects.equals(receivedConvo, other.receivedConvo) && Objects.equals(role, other.role)
+				&& Objects.equals(receivedConvos, other.receivedConvos) && Objects.equals(role, other.role)
 				&& Objects.equals(status, other.status) && Objects.equals(updatedAt, other.updatedAt)
 				&& Objects.equals(userPicture, other.userPicture) && Objects.equals(username, other.username);
 	}

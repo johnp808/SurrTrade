@@ -27,12 +27,12 @@ public class FeedPostLike {
 
 	@ManyToOne
 	@JoinColumn(name="user_id")
-    @JsonBackReference
+    @JsonBackReference("user-feedPostLikes")
 	private User user;
 	
 	@ManyToOne
 	@JoinColumn(name="feed_post_id")
-    @JsonBackReference
+    @JsonBackReference("feedPost-likes")
 	private FeedPost feedPost;
 	
 	public FeedPostLike() {}

@@ -21,12 +21,12 @@ public class UserFavoriteMarketItem {
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
-	@JsonBackReference
+	@JsonBackReference("user-savedMarketItems")
 	private User user;
 	
 	@ManyToOne
 	@JoinColumn(name="market_item_id")
-    @JsonBackReference
+    @JsonBackReference("marketItem-savedByUsers")
 	private MarketItem marketItem;
 
 	public UserFavoriteMarketItem() {}

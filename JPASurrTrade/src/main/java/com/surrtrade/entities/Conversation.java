@@ -23,16 +23,16 @@ public class Conversation {
 
 	@ManyToOne
 	@JoinColumn(name="user1_id")
-    @JsonBackReference
+    @JsonBackReference("user-initiatedConvos")
 	private User initiator;
 	
 	@ManyToOne
 	@JoinColumn(name="user2_id")
-	@JsonBackReference
+	@JsonBackReference("user-receivedConvos")
 	private User receiver;
 
 	@OneToMany(mappedBy = "conversation")
-    @JsonManagedReference
+    @JsonManagedReference("conversation-messages")
 	private Set<Message> messages;
 
 	public Conversation() {}

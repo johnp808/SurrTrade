@@ -31,12 +31,12 @@ public class Message implements Comparable<Message> {
 	
 	@ManyToOne
 	@JoinColumn(name="sender_id")
-    @JsonBackReference
+    @JsonBackReference("user-messages")
 	private User sender;
 	
 	@ManyToOne
 	@JoinColumn(name="conversation_id")
-    @JsonBackReference
+    @JsonBackReference("conversation-messages")
 	private Conversation conversation;
 
 	public Message() {}

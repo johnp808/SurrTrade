@@ -47,11 +47,11 @@ public class MarketItem {
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
-    @JsonBackReference
+    @JsonBackReference("user-marketItems")
 	private User user;
 	
 	@OneToMany(mappedBy="marketItem")
-    @JsonManagedReference
+    @JsonManagedReference("marketItem-savedByUsers")
 	private Set<UserFavoriteMarketItem> savedByUsers;
 
 	

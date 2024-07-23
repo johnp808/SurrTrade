@@ -8,9 +8,9 @@ public interface UserService {
 
 	List<User> findAllUsers();
 	User findByUsername(String username);
-	User findById(String username, int id);
+	User showUser(int id);
 	User update(User user, int id);
-	boolean deleteUserById(int id);
+//	boolean deleteUserById(int id);
 	boolean enabledDisabledUser(int userId);
 	
 }

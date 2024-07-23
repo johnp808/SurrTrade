@@ -28,12 +28,12 @@ public class Comment {
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
-	@JsonBackReference
+	@JsonBackReference("user-comments")
 	private User user;
 	
 	@ManyToOne
 	@JoinColumn(name="feed_post_id")
-	@JsonBackReference
+	@JsonBackReference("feedPost-comments")
 	private FeedPost feedPost;
 	
 	public Comment() {}

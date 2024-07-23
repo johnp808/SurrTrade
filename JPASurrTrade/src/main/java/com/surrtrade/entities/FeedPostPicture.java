@@ -30,7 +30,7 @@ public class FeedPostPicture {
 	
 	@ManyToOne
 	@JoinColumn(name="feed_post_id")
-    @JsonBackReference
+    @JsonBackReference("feedPost-pictures")
 	private FeedPost feedPost;
 
 	public FeedPostPicture() {}

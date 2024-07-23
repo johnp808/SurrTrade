@@ -1,5 +1,6 @@
 package com.surrtrade.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,14 +11,14 @@ import com.surrtrade.entities.User;
 import com.surrtrade.repositories.UserRepository;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepo;
 
-	   public UserServiceImpl(UserRepository userRepository) {
-	        this.userRepo = userRepository;
-	    }
+	public UserServiceImpl(UserRepository userRepository) {
+		this.userRepo = userRepository;
+	}
 
 	@Override
 	public List<User> findAllUsers() {
@@ -30,34 +31,83 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User findById(String username, int id) {
-		return userRepo.findById(id).orElse(null);
+	public User showUser(int id) {
+		Optional<User> existingUserOpt = userRepo.findById(id);
+		return existingUserOpt.orElse(null);
 	}
 
 	@Override
 	public User update(User user, int id) {
+		Optional<User> existingUserOpt = userRepo.findById(id);
+		
+		if (existingUserOpt.isPresent()) {
+			User existingUser = existingUserOpt.get();
+			
+			if (user.getUsername() != null) {
+				existingUser.setUsername(user.getUsername());
+			}
+			
+			if (user.getEmail() != null) {
+				existingUser.setEmail(user.getEmail());
+			}
+			
+			if (user.getPassword() != null) {
+				existingUser.setPassword(user.getPassword());
+			}
+			
+			if (user.getPrimaryBike() != null) {
+				existingUser.setPrimaryBike(user.getPrimaryBike());
+			}
+			
+			if (user.getStatus() != null) {
+				existingUser.setStatus(user.getStatus());
+			}
+			
+			if (user.getRole() != null) {
+				existingUser.setRole(user.getRole());
+			}
+			
+			existingUser.setUpdatedAt(LocalDateTime.now());
+			
+			if (user.getLastLogin() != null) {
+				existingUser.setLastLogin(user.getLastLogin());
+			}
+			
+			
+			if (user.getBikePicture() != null) {
+				existingUser.setBikePicture(user.getBikePicture());
+			}
+
+			
+			if (user.getUserPicture() != null) {
+				existingUser.setUserPicture(user.getUserPicture());
+			}
+			
+			existingUser.setEnabled(user.isEnabled());
+			
+			return userRepo.saveAndFlush(existingUser);
+		}
 		return null;
 	}
-	
+
 	@Override
 	public boolean enabledDisabledUser(int userId) {
-		Optional<User> user = userRepo.findById(userId);
-	// if the users enabled is false, enable it, otherwise return false
-		if(user.isPresent()) {
-			User u = user.get();
-			u.setEnabled(!u.isEnabled());
-			userRepo.save(u);
+		Optional<User> foundUserOpt = userRepo.findById(userId);
+		if (foundUserOpt.isPresent()) {
+			User user = foundUserOpt.get();
+			user.setEnabled(!user.isEnabled());
+			userRepo.save(user);
 			return true;
 		}
 		return false;
 	}
-	
-	@Override
-	public boolean deleteUserById(int id) {
-		if (userRepo.existsById(id)) {
-	            userRepo.deleteById(id);
-	            return true;
-	        }
-	        return false;
-	    }
+
+//	@Override
+//	public boolean deleteUserById(int id) {
+//		if (userRepo.existsById(id)) {
+//	            userRepo.deleteById(id);
+//	            return true;
+//	        }
+//	        return false;
+//	    }
 }

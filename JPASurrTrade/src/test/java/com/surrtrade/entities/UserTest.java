@@ -119,9 +119,9 @@ public class UserTest {
 	
 	@Test
 	void test_one_to_many_user_sender_conversations() {
-		assertNotNull(user.getInitiatedConvo());
-		assertEquals(1, user.getInitiatedConvo().size());
-		Conversation firstConvo = user.getInitiatedConvo().iterator().next();
+		assertNotNull(user.getInitiatedConvos());
+		assertEquals(1, user.getInitiatedConvos().size());
+		Conversation firstConvo = user.getInitiatedConvos().iterator().next();
 		List<Message> sortedMessages =new ArrayList<>(firstConvo.getMessages());
 		Collections.sort(sortedMessages);
 		assertEquals("How's it going?", sortedMessages.get(0).getMessageContent());
@@ -131,9 +131,9 @@ public class UserTest {
 	void test_one_to_many_user_receiver_conversations() {
 		//receiver of test_one_to_many_user_sender_conversations conversation
 		user = em.find(User.class, 2);
-		assertNotNull(user.getReceivedConvo());
-		assertEquals(1, user.getReceivedConvo().size());
-		Conversation firstConvo = user.getReceivedConvo().iterator().next();
+		assertNotNull(user.getReceivedConvos());
+		assertEquals(1, user.getReceivedConvos().size());
+		Conversation firstConvo = user.getReceivedConvos().iterator().next();
 		List<Message> sortedMessages = new ArrayList<>(firstConvo.getMessages());
 		Collections.sort(sortedMessages);
 		assertEquals("How's it going?", sortedMessages.get(0).getMessageContent());

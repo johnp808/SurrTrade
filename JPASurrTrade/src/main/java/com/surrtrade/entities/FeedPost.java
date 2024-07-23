@@ -37,19 +37,19 @@ public class FeedPost {
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
-	@JsonBackReference
+	@JsonBackReference("user-feedPosts")
 	private User user;
 	
 	@OneToMany(mappedBy="feedPost")
-	@JsonManagedReference
+	@JsonManagedReference("feedPost-comments")
 	private Set<Comment> postComments;
 	
 	@OneToMany(mappedBy="feedPost")
-	@JsonManagedReference
+	@JsonManagedReference("feedPost-pictures")
 	private Set<FeedPostPicture> feedPostPics;
 	
 	@OneToMany(mappedBy="feedPost")
-	@JsonManagedReference
+	@JsonManagedReference("feedPost-likes")
 	private Set<FeedPostLike> feedPostLikes;
 
 	public FeedPost() {}
