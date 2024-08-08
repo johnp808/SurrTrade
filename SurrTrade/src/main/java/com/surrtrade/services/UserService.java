@@ -9,7 +9,7 @@ import com.surrtrade.entities.User;
 public interface UserService {
 
 	List<UserDTO> findAllUsers();
-	UserDTO findByUsername(String username);
+	User findByUsername(String username);
 	UserDTO getUserDTOById(int id);
 	UserDTO convertToUserDTO(User user);
 	User getUserById(int id);

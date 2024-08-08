@@ -37,13 +37,12 @@ public class UserController {
 
 		try {
 			users = userSvc.findAllUsers();
+			return new ResponseEntity<>(users, HttpStatus.OK);
 		} 
-		
 		catch (Exception exc) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 	
 	@GetMapping("search/{username}")
@@ -54,14 +53,21 @@ public class UserController {
 			
 		}
 		
-		UserDTO user = userSvc.findByUsername(username);
+		User authUser = userSvc.findByUsername(principal.getName());
+		
+		if( authUser == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+		}
+		
+		User user = userSvc.findByUsername(username);
 		
 		if (user == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			
 		}
 		
-		return new ResponseEntity<>(user, HttpStatus.OK);
+		return new ResponseEntity<>(userSvc.convertToUserDTO(user), HttpStatus.OK);
 	}
 
 	@GetMapping("profile/{id}")
@@ -71,7 +77,14 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
 		}
+		
+		User authUser = userSvc.findByUsername(principal.getName());
+		
+		if( authUser == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
+		}
+		
 		UserDTO userDTO = userSvc.getUserDTOById(id);
 		
 		if (userDTO == null) {
@@ -82,7 +95,7 @@ public class UserController {
 		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
 	
-	@PutMapping("profile/update/{id}")
+	@PutMapping("profile/update/bio/{id}")
 	public ResponseEntity<UserDTO> updateUser(HttpServletRequest req, HttpServletResponse res, @RequestBody UserDTO userDTO, @PathVariable("id") int id, Principal principal) {
 		
 		if (principal == null) {
@@ -90,7 +103,7 @@ public class UserController {
 
 		}
 
-		UserDTO authUser = userSvc.findByUsername(principal.getName());
+		User authUser = userSvc.findByUsername(principal.getName());
 		
 		if( authUser == null || authUser.getId() != id) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -106,21 +119,24 @@ public class UserController {
 		return new ResponseEntity<>(updatedUser, HttpStatus.OK);
 	}
 	
-	@PutMapping("profile/changepassword/{id}")
+	@PutMapping("profile/update/password/{id}")
 	public ResponseEntity<Boolean> changeUserPassword(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id, @RequestBody ChangePassDTO changePass, Principal principal) {
 		
+		boolean changePassBool = false;
+		
 		if (principal == null) {
-			return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(changePassBool, HttpStatus.UNAUTHORIZED);
 
 		}
 		
-		UserDTO authUser = userSvc.findByUsername(principal.getName());
+		User authUser = userSvc.findByUsername(principal.getName());
+		
 		if( authUser == null || authUser.getId() != id ) {
-			return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(changePassBool, HttpStatus.NOT_FOUND);
 
 		}
 		
-		boolean changePassBool = userSvc.changePassword(id, changePass);
+		changePassBool = userSvc.changePassword(id, changePass);
 		
 		if(changePassBool) {
 			
@@ -132,6 +148,7 @@ public class UserController {
 		
 	@DeleteMapping("profile/delete/{id}")
 	public ResponseEntity<Boolean> deleteUser(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id, Principal principal) {
+		
 		boolean userDeleted = false;
 		
 		if (principal == null) {
@@ -139,7 +156,7 @@ public class UserController {
 
 		}
 		
-		UserDTO authUser = userSvc.findByUsername(principal.getName());
+		User authUser = userSvc.findByUsername(principal.getName());
 		
 		if(authUser.getRole().equalsIgnoreCase("admin")) {
 			userDeleted = userSvc.deleteUserById(id);
@@ -152,24 +169,26 @@ public class UserController {
 	@PutMapping("profile/toggleuser/{id}")
 	public ResponseEntity<Boolean> toggleUser(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id, Principal principal) {
 		
+		boolean enableDisabledUser = false;
+		
 		if (principal == null) {
-			return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(enableDisabledUser, HttpStatus.UNAUTHORIZED);
 		}
 		
 		User userToToggle = userSvc.getUserById(id);
 		
 		if (userToToggle == null) {
-			return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(enableDisabledUser, HttpStatus.NOT_FOUND);
 		}
 		
-		UserDTO authUser = userSvc.findByUsername(principal.getName());
+		User authUser = userSvc.findByUsername(principal.getName());
 		
-		if (authUser == null || authUser.getId() != id && !authUser.getRole().equalsIgnoreCase("admin")) {
-			return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
+		if (authUser == null || (authUser.getId() != id && !authUser.getRole().equalsIgnoreCase("admin"))) {
+			return new ResponseEntity<>(enableDisabledUser, HttpStatus.UNAUTHORIZED);
 
 		}
 		
-		boolean enableDisabledUser = userSvc.enabledDisableUser(id);
+		enableDisabledUser = userSvc.enabledDisableUser(id);
 		return new ResponseEntity<>(enableDisabledUser, HttpStatus.OK);
 	}
 }
