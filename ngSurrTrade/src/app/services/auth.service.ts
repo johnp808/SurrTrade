@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { userDTO } from '../models/userDTO';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class AuthService {
   private baseUrl = environment.baseUrl;
   public currentUser: userDTO = new userDTO();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(username: string, password: string): Observable<userDTO> {
     const credentials = this.generateBasicAuthCredentials(username, password);
@@ -51,6 +52,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('credentials');
     this.currentUser = new userDTO();
+    this.router.navigate(['/']);
   }
 
   checkLogin() {
