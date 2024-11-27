@@ -1,4 +1,13 @@
 .nav-item .btn {
   text-align: center;
-  width: 100%;
+}
+
+.btn {
+  width: 10rem;
+}
+
+@media (max-width: 768px) {
+  .nav-item .btn {
+    width: 6rem; /* Only on smaller screens */
+  }
 }

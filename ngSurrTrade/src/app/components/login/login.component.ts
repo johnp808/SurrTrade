@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -7,17 +7,24 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  @ViewChild('usernameInput', { static: true }) usernameInput!: ElementRef;
   loginData = {
     username: '',
-    password: '',
+    loginPassword: '',
   };
+
   errorMessage = '';
+
   constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit() {
+    this.usernameInput.nativeElement.focus();
+  }
 
   onLogin() {
     this.authService
-      .login(this.loginData.username, this.loginData.password)
+      .login(this.loginData.username, this.loginData.loginPassword)
       .subscribe({
         next: (res) => {
           console.log('Login successful:', res);
@@ -26,7 +33,7 @@ export class LoginComponent {
         },
         error: (err) => {
           console.error('Login failed:', err);
-          this.errorMessage = 'Invalid username or password';
+          this.errorMessage = 'Invalid Username or Password <br> Try Again';
         },
       });
   }

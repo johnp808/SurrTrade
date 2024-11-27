@@ -72,13 +72,10 @@ export class AuthService {
     return this.http
       .get<boolean>(this.baseUrl + 'api/users/checkusername/' + username)
       .pipe(
-        tap((res) => {
-          return res;
-        }),
         catchError((err: any) => {
           console.log(err);
           return throwError(
-            'AuthService.getUserByUsername(): Error getting userDTO in.'
+            'Error checking username: AuthService.getUserByUsername()'
           );
         })
       );

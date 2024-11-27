@@ -5,22 +5,21 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { FilloutComponent } from './components/login/fillout/fillout.component';
 import { RegisterComponent } from './components/login/register/register.component';
+import { AboutComponent } from './components/about/about.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  {
-    path: 'login',
-    component: LoginComponent,
-    children: [
-      { path: 'fillout', component: FilloutComponent },
-      { path: 'register', component: RegisterComponent },
-    ],
-  },
+  { path: 'login', component: LoginComponent },
+  { path: 'fillout', component: FilloutComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'contact', component: ContactComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
