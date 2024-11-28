@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { userDTO } from '../models/userDTO';
+import { RegisterData } from '../models/register-data';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -24,7 +25,6 @@ export class AuthService {
         'X-Requested-With': 'XMLHttpRequest',
       }),
     };
-
     return this.http
       .get<userDTO>(this.baseUrl + 'authenticate', httpOptions)
       .pipe(
@@ -40,13 +40,17 @@ export class AuthService {
       );
   }
 
-  register(userDTO: userDTO): Observable<userDTO> {
-    return this.http.post<userDTO>(this.baseUrl + 'register', userDTO).pipe(
-      catchError((err: any) => {
-        console.log(err);
-        return throwError('AuthService.register(): error registering userDTO.');
-      })
-    );
+  register(registerData: RegisterData): Observable<userDTO> {
+    return this.http
+      .post<userDTO>(this.baseUrl + 'register', registerData)
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError(
+            'AuthService.register(): error registering userDTO.'
+          );
+        })
+      );
   }
 
   logout() {

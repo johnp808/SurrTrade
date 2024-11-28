@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { RegisterComponent } from './components/login/register/register.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FooterComponent } from './components/footer/footer.component';
     ProfileComponent,
     HeaderComponent,
     FooterComponent,
+    RegisterComponent,
   ],
   bootstrap: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, RouterModule, FormsModule],
