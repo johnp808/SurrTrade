@@ -17,35 +17,46 @@ export class RegisterComponent {
   };
   confirmPassword: string = '';
   errorMessage: string = '';
+  usernameExists: boolean = false;
+  isPasswordValid: boolean = true;
+  private usernameCheckTimeout: any;
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  onUsernameBlur(username: string) {
+  onUsernameInput(username: string) {
+    clearTimeout(this.usernameCheckTimeout);
     if (username.trim()) {
-      this.authService.checkRegister(username).subscribe(
-        (exists) => {
-          this.errorMessage = exists ? 'This Username Is Already In Use' : '';
-        },
-        (err) => {
-          console.error('Error checking Username: ', err);
-          this.errorMessage = 'Error Validating Username. Please Try Again';
-        }
-      );
+      this.usernameCheckTimeout = setTimeout(() => {
+        this.authService.checkRegister(username).subscribe(
+          (exists) => {
+            this.usernameExists = exists;
+          },
+          (err) => {
+            console.error('Error checking Username: ', err);
+            this.usernameExists = false;
+          }
+        );
+      }, 200);
+    } else {
+      this.usernameExists = false;
     }
   }
 
+  onPasswordInput(password: string) {
+    this.isPasswordValid = this.isValidPassword(password);
+  }
+
+  isValidPassword(password: string): boolean {
+    const passwordRegex = /^[^\s]{8,}$/;
+    return passwordRegex.test(password);
+  }
+
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    return emailRegex.test(email);
+  }
+
   onRegister() {
-    this.errorMessage = '';
-
-    if (!this.isValidEmail(this.registerData.email)) {
-      this.errorMessage = 'Please Enter A Valid Email Address';
-    }
-
-    if (this.registerData.password !== this.confirmPassword) {
-      this.errorMessage = 'Passwords Do Not Match';
-      return;
-    }
-
     this.authService.register(this.registerData).subscribe(
       (res) => {
         console.log('User Registered Successfully:', res);
@@ -56,10 +67,5 @@ export class RegisterComponent {
         this.errorMessage = 'Registration Failed. Please Try Again.';
       }
     );
-  }
-
-  isValidEmail(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-    return emailRegex.test(email);
   }
 }
