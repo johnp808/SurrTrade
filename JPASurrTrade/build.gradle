@@ -34,6 +34,8 @@ ext {
 
 // define project specific dependencies
 dependencies {
+  implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+  implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final'
   implementation "mysql:mysql-connector-java:$mySqlConnectorVersion"
   implementation "org.apache.logging.log4j:log4j-core:$log4jVersion"
   implementation "org.hibernate:hibernate-core:$hibernateVersion"
@@ -41,6 +43,8 @@ dependencies {
   testImplementation "org.junit.jupiter:junit-jupiter:$junit5Version"
   testImplementation 'org.junit.platform:junit-platform-launcher:1.9.3'
   implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.13.3'
+  annotationProcessor 'org.hibernate.validator:hibernate-validator:8.0.0.Final'
+
 }
 
 test {

@@ -6,12 +6,10 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class User {
@@ -21,12 +19,18 @@ public class User {
 	private int id;
 	
 	@Column(nullable = false, unique = true)
+	@NotBlank(message = "Username is Required")
+	@Size(min = 3, max = 25, message = "Username Must Be Between 3 and 25 Characters")
 	private String username;
 	
 	@Column(nullable = false, unique = true)
+	@NotBlank(message = "Email is Required")
+	@Email(message = "Use A Valid Email Address")
 	private String email;
 	
 	@Column(nullable = false)
+	@NotBlank(message = "Password Is Required")
+	@Size(min = 8, message = "Password Must Be At Least 8 Characters Long")
 	private String password;
 	
 	@Column(name="primary_bike")

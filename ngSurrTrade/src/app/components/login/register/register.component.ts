@@ -20,9 +20,29 @@ export class RegisterComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  onUsernameBlur(username: string) {
+    if (username.trim()) {
+      this.authService.checkRegister(username).subscribe(
+        (exists) => {
+          this.errorMessage = exists ? 'This Username Is Already In Use' : '';
+        },
+        (err) => {
+          console.error('Error checking Username: ', err);
+          this.errorMessage = 'Error Validating Username. Please Try Again';
+        }
+      );
+    }
+  }
+
   onRegister() {
+    this.errorMessage = '';
+
+    if (!this.isValidEmail(this.registerData.email)) {
+      this.errorMessage = 'Please Enter A Valid Email Address';
+    }
+
     if (this.registerData.password !== this.confirmPassword) {
-      this.errorMessage = 'Passwords Do Not Match.';
+      this.errorMessage = 'Passwords Do Not Match';
       return;
     }
 
@@ -36,5 +56,10 @@ export class RegisterComponent {
         this.errorMessage = 'Registration Failed. Please Try Again.';
       }
     );
+  }
+
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    return emailRegex.test(email);
   }
 }

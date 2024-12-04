@@ -46,9 +46,14 @@ export class AuthService {
       .pipe(
         catchError((err: any) => {
           console.log(err);
-          return throwError(
-            'AuthService.register(): error registering userDTO.'
-          );
+          switch (err.status) {
+            case 400:
+              return throwError('Invalid input: Please check your details');
+            case 409:
+              return throwError('Username or Password Already Exists');
+            default:
+              return throwError('Registration Failed. Please Try Again');
+          }
         })
       );
   }
@@ -76,7 +81,7 @@ export class AuthService {
 
   checkRegister(username: string): Observable<boolean> {
     return this.http
-      .get<boolean>(this.baseUrl + 'api/users/checkusername/' + username)
+      .get<boolean>(this.baseUrl + 'checkusername/' + username)
       .pipe(
         catchError((err: any) => {
           console.log(err);

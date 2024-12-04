@@ -5,8 +5,10 @@ import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import com.surrtrade.services.AuthService;
 import com.surrtrade.services.UserService;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("api")
@@ -31,16 +34,26 @@ public class AuthController {
   private UserService userSvc;
   
   @PostMapping("register")
-	public ResponseEntity<User> register(@RequestBody User user,HttpServletResponse res) {
+	public ResponseEntity<UserDTO> register(@Valid @RequestBody User user, BindingResult result) {
 
-	    if (user == null) {
-	        res.setStatus(400);
-	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
+	    if (result.hasErrors()) {
+	    	StringBuilder errorMessage = new StringBuilder("Validation Failed: ");
+	    	result.getFieldErrors().forEach(error ->
+	    		errorMessage.append(error.getField())
+	    		.append(" - ")
+	    		.append(error.getDefaultMessage())
+	    		.append("; ")
+	    			);
+	    	throw new RuntimeException(errorMessage.toString());
 	    }
-	    user = authSvc.register(user);
-
-	    return new ResponseEntity<>(user, HttpStatus.OK);
+	    try {
+	    	User registeredUser = authSvc.register(user);
+	    	UserDTO registeredDTO = userSvc.convertToUserDTO(registeredUser);
+	    	return ResponseEntity.ok(registeredDTO);
+	    }
+	    catch(RuntimeException e) {
+	    	throw new RuntimeException("Username or Email Already Exists");
+	    }
 	}
 
 	@GetMapping("authenticate")
@@ -60,4 +73,9 @@ public class AuthController {
 		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
 
+	@GetMapping("checkusername/{username}")
+	public ResponseEntity<Boolean> checkUsername(@PathVariable("username") String username) {
+		boolean usernameExists = userSvc.findByUsername(username) != null;
+		return ResponseEntity.ok(usernameExists);
+	}
 }

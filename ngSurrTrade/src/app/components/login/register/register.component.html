@@ -6,32 +6,34 @@
         <div class="col-md-6 col-lg-4">
           <div class="form-group mb-3">
             <input class="form-control mt-3" type="text" name="username" placeholder="Enter Username"
-              [(ngModel)]="registerData.username" #username="ngModel" required />
-            <div class="text-danger" *ngIf="username.invalid && username.touched">
-              Username is Required.
+              [(ngModel)]="registerData.username" #username="ngModel" (blur)="onUsernameBlur(registerData.username)"
+              required />
+            <div class="text-danger mt-3" *ngIf="username.invalid && username.touched">
+              A Username Is Required
+            </div>
+            <div class="text-danger mt-3" *ngIf="errorMessage && username.touched">
+              {{ errorMessage }}
             </div>
             <input class="form-control mt-3" type="email" name="email" placeholder="Enter Email"
               [(ngModel)]="registerData.email" #email="ngModel" required />
-            <div class="text-danger" *ngIf="email.invalid && email.touched">
-              Valid email is required.
+            <div class="text-danger mt-3" *ngIf="!isValidEmail(registerData.email) && email.touched">
+              Please Enter A Valid Email Address
             </div>
             <input class="form-control mt-3" type="password" name="password" placeholder="Enter Password"
               [(ngModel)]="registerData.password" minlength="8" #password="ngModel" required />
-            <div class="text-danger" *ngIf="password.invalid && password.touched">
-              Password must be at least 8 Characters.
+            <div class="text-danger mt-3" *ngIf="password.invalid && password.touched">
+              Password Must Be At Least 8 Characters Long
             </div>
             <input class="form-control mt-3" type="password" name="confirmPassword" placeholder="Confirm Password"
               [(ngModel)]="confirmPassword" required />
-            <div class="text-danger" *ngIf="registerData.password !== confirmPassword && confirmPassword.length > 0">
-              Passwords Do No Match.
+            <div class="text-danger mt-3"
+              *ngIf="registerData.password !== confirmPassword && confirmPassword.length > 0">
+              Passwords Do Not Match
             </div>
             <button class="btn btn-primary mt-3" type="submit"
               [disabled]="registerForm.invalid || registerData.password !== confirmPassword">
               Register
             </button>
-            <div class="text-danger mt-3" *ngIf="errorMessage">
-              {{errorMessage}}
-            </div>
           </div>
         </div>
       </div>
