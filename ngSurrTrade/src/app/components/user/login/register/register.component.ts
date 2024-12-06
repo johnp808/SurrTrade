@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { userDTO } from 'src/app/models/userDTO';
 import { RegisterData } from 'src/app/models/register-data';
 
 @Component({
@@ -18,8 +17,10 @@ export class RegisterComponent {
   confirmPassword: string = '';
   errorMessage: string = '';
   usernameExists: boolean = false;
+  emailExists: boolean = false;
   isPasswordValid: boolean = true;
   private usernameCheckTimeout: any;
+  private emailCheckTimeout: any;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -42,6 +43,25 @@ export class RegisterComponent {
     }
   }
 
+  onEmailInput(email: string) {
+    clearTimeout(this.emailCheckTimeout);
+    if (email.trim()) {
+      this.emailCheckTimeout = setTimeout(() => {
+        this.authService.checkEmail(email).subscribe(
+          (exists) => {
+            this.emailExists = exists;
+          },
+          (err) => {
+            console.error('Error checking email: ', err);
+            this.emailExists = true;
+          }
+        );
+      }, 200);
+    } else {
+      this.emailExists = false;
+    }
+  }
+
   onPasswordInput(password: string) {
     this.isPasswordValid = this.isValidPassword(password);
   }
@@ -60,7 +80,19 @@ export class RegisterComponent {
     this.authService.register(this.registerData).subscribe(
       (res) => {
         console.log('User Registered Successfully:', res);
-        this.router.navigate(['/profile']);
+        this.authService
+          .login(this.registerData.username, this.registerData.password)
+          .subscribe(
+            (loginRes) => {
+              console.log('Logged In New Registered User');
+              this.router.navigate(['/account-confirmed']);
+            },
+            (loginerr) => {
+              console.error('Login Failed After Registering User');
+              this.errorMessage =
+                'Registration Successful But Login Failed, Try Logging In Manually';
+            }
+          );
       },
       (err) => {
         console.log(err);

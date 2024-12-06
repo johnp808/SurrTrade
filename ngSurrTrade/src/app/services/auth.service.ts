@@ -84,11 +84,20 @@ export class AuthService {
       .get<boolean>(this.baseUrl + 'checkusername/' + username)
       .pipe(
         catchError((err: any) => {
-          console.log(err);
+          console.error('Error checking username', err);
           return throwError(
             'Error checking username: AuthService.getUserByUsername()'
           );
         })
       );
+  }
+
+  checkEmail(email: string): Observable<boolean> {
+    return this.http.get<boolean>(this.baseUrl + 'checkemail/' + email).pipe(
+      catchError((err: any) => {
+        console.error('Error checking email:', err);
+        return throwError('Error checking email: AuthService.getByEmail()');
+      })
+    );
   }
 }

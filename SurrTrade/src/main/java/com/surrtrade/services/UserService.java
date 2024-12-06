@@ -1,6 +1,7 @@
 package com.surrtrade.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.surrtrade.dto.ChangePassDTO;
 import com.surrtrade.dto.UserDTO;
@@ -17,4 +18,5 @@ public interface UserService {
 	boolean deleteUserById(int id);
 	boolean enabledDisableUser(int userId);
 	boolean changePassword(int id, ChangePassDTO changePass);
+	User findByEmail(String email);
 }

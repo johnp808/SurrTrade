@@ -78,4 +78,10 @@ public class AuthController {
 		boolean usernameExists = userSvc.findByUsername(username) != null;
 		return ResponseEntity.ok(usernameExists);
 	}
+	
+	@GetMapping("checkemail/{email}")
+	public ResponseEntity<Boolean> checkEmail(@PathVariable("email") String email) {
+		boolean emailExists = userSvc.findByEmail(email) != null;
+		return ResponseEntity.ok(emailExists);
+	}
 }

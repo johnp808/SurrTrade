@@ -34,6 +34,7 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()    // will hit the OPTIONS on the route
             .requestMatchers("/api/authenticate").permitAll()         // Allow access to authenticate endpoint
             .requestMatchers("/api/checkusername/**").permitAll()
+            .requestMatchers("/api/checkemail/**").permitAll()
             .requestMatchers("/api/register/**").permitAll()         // Allow access to authenticate endpoint
             .anyRequest().authenticated());
         http.sessionManagement(management -> management

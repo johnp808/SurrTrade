@@ -15,9 +15,12 @@
               Username Has Already Been Claimed
             </div>
             <input class="form-control mt-3" type="email" name="email" placeholder="Enter Email"
-              [(ngModel)]="registerData.email" #email="ngModel" required />
-            <div class="text-danger mt-3" *ngIf="!isValidEmail(registerData.email) && email.touched">
+              [(ngModel)]="registerData.email" #email="ngModel" (input)="onEmailInput(registerData.email)" required />
+            <div class="text-danger mt-3" *ngIf="!isValidEmail(registerData.email) && registerData.email.length > 0">
               Please Enter A Valid Email Address
+            </div>
+            <div class="text-danger mt-3" *ngIf="isValidEmail(registerData.email) && emailExists">
+              This Email Is Currently In Use
             </div>
             <input class="form-control mt-3" type="password" name="password" placeholder="Enter Password"
               [(ngModel)]="registerData.password" (input)="onPasswordInput(registerData.password)" minlength="8"
@@ -32,7 +35,7 @@
               Passwords Do Not Match
             </div>
             <button class="btn btn-primary mt-3" type="submit"
-              [disabled]="registerForm.invalid || registerData.password !== confirmPassword">
+              [disabled]="registerForm.invalid || usernameExists || !isValidEmail(registerData.email) || emailExists || !isPasswordValid || registerData.password !== confirmPassword">
               Register
             </button>
           </div>
