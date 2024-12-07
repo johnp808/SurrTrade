@@ -16,6 +16,14 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  generateBasicAuthCredentials(username: string, password: string) {
+    return btoa(`${username}:${password}`);
+  }
+
+  getCredentials() {
+    return localStorage.getItem('credentials');
+  }
+
   login(username: string, password: string): Observable<userDTO> {
     const credentials = this.generateBasicAuthCredentials(username, password);
 
@@ -69,14 +77,6 @@ export class AuthService {
       return true;
     }
     return false;
-  }
-
-  generateBasicAuthCredentials(username: string, password: string) {
-    return btoa(`${username}:${password}`);
-  }
-
-  getCredentials() {
-    return localStorage.getItem('credentials');
   }
 
   checkRegister(username: string): Observable<boolean> {

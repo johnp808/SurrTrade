@@ -70,14 +70,15 @@ public class UserController {
 		return new ResponseEntity<>(userSvc.convertToUserDTO(user), HttpStatus.OK);
 	}
 
-	@GetMapping("profile/{id}")
-	public ResponseEntity<UserDTO> getUser(HttpServletRequest req, HttpServletResponse res, @PathVariable("id") int id, Principal principal) {
+	@GetMapping("profile")
+	public ResponseEntity<UserDTO> getUser(Principal principal) {
 		
 		if (principal == null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
 		}
 		
+		System.out.println("Principal: " + principal.getName());
 		User authUser = userSvc.findByUsername(principal.getName());
 		
 		if( authUser == null) {
@@ -85,12 +86,7 @@ public class UserController {
 
 		}
 		
-		UserDTO userDTO = userSvc.getUserDTOById(id);
-		
-		if (userDTO == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-		}
+		UserDTO userDTO = userSvc.convertToUserDTO(authUser);
 		
 		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}

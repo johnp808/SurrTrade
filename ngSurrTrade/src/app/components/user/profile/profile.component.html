@@ -1,1 +1,22 @@
-<p>profile works!</p>
+<div class="container-fluid text-center">
+  <h1 *ngIf="!isLoading">{{user?.username}}'s Profile Info</h1>
+
+  <div *ngIf="isLoading" class="spinner-container">
+    <div class="spinner-border text primary mt-3" role="status">
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading">
+    {{user?.username}}
+    {{user?.email}}
+    {{user?.userPicture}}
+    {{user?.bikePicture}}
+    {{user?.status}}
+
+
+  </div>
+
+  <div *ngIf="errorMessage" class="text-danger mt-3">
+    {{ errorMessage }}
+  </div>
+</div>
