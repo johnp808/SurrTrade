@@ -69,6 +69,8 @@ public class AuthController {
 	    	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 		
+	    authSvc.toggleStatus(principal.getName(), "Online");
+	    authSvc.updateLastLogin(principal.getName());
 	    UserDTO userDTO = userSvc.convertToUserDTO(user);
 		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
@@ -83,5 +85,13 @@ public class AuthController {
 	public ResponseEntity<Boolean> checkEmail(@PathVariable("email") String email) {
 		boolean emailExists = userSvc.findByEmail(email) != null;
 		return ResponseEntity.ok(emailExists);
+	}
+	
+	@PostMapping("logout")
+	public ResponseEntity<Void> logoutUser(Principal principal) {
+		if(principal != null) {
+			authSvc.logoutUser(principal.getName());
+		}
+		return ResponseEntity.ok().build();
 	}
 }

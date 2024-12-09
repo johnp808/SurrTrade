@@ -1,19 +1,50 @@
-<div class="container-fluid text-center">
-  <h1 *ngIf="!isLoading">{{user?.username}}'s Profile Info</h1>
+<div class="container-fluid mt-5">
+  <h1 *ngIf="!isLoading" class="text-center">{{user?.username}}'s Profile Info</h1>
 
   <div *ngIf="isLoading" class="spinner-container">
     <div class="spinner-border text primary mt-3" role="status">
     </div>
   </div>
 
-  <div *ngIf="!isLoading">
-    {{user?.username}}
-    {{user?.email}}
-    {{user?.userPicture}}
-    {{user?.bikePicture}}
-    {{user?.status}}
+  <div class="row mt-3" *ngIf="!isLoading">
+    <div class="col-md-6 border-end text-center">
+      <h2>Current Info:</h2>
+      <div class="mt-5">
+        <h5><strong>Username:</strong> {{user?.username}}</h5>
+        <h5><strong>User Status:</strong> {{user?.status}}</h5>
+        <h5><strong>Email:</strong> {{user?.email}}</h5>
+        <h5><strong>Primary Bike:</strong> {{user?.primaryBike}}</h5>
+        <h5><strong>Profile Picture:</strong> {{user?.userPicture}}</h5>
+        <h5><strong>Bike Picture:</strong> {{user?.bikePicture}}</h5>
+        <h5><strong>Last Login:</strong> {{user?.lastLogin | date: 'MMMM dd yyyy' }}</h5>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4 text-center">
+      <h2>Edit Info:</h2>
+      <div class="mt-5">
+        <form (ngSubmit)='onSaveProfile()' #profileForm="ngForm">
+          <div class="mb-1">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" id="username" [(ngModel)]="updatedUser.username" name="username" class="form-control" />
+          </div>
+          <div class="mb-1">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" [(ngModel)]="updatedUser.email" name="email" class="form-control" />
+          </div>
+          <div class="mb-1">
+            <label for="primaryBike" class="form-label">Primary Bike</label>
+            <input type="text" id="primaryBike" [(ngModel)]="updatedUser.primaryBike" name="primaryBike"
+              class="form-control" />
+          </div>
+          <div class="mb-1">
+            <label for="primaryBike" class="form-label">Primary Bike</label>
+            <input type="text" id="primaryBike" [(ngModel)]="updatedUser.primaryBike" name="primaryBike"
+              class="form-control" />
+          </div>
 
-
+        </form>
+      </div>
+    </div>
   </div>
 
   <div *ngIf="errorMessage" class="text-danger mt-3">

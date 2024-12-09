@@ -38,6 +38,7 @@ export class AuthService {
       .pipe(
         tap((res) => {
           localStorage.setItem('credentials', credentials);
+          this.currentUser.status = 'Online';
           this.currentUser = res;
           return res;
         }),
@@ -46,6 +47,26 @@ export class AuthService {
           return throwError('AuthService.login(): Error logging in.');
         })
       );
+  }
+
+  logout() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Basic ${localStorage.getItem('credentials')}`,
+      }),
+    };
+
+    this.http.post(`${this.baseUrl}logout`, {}, httpOptions).subscribe({
+      next: () => {
+        this.currentUser.status = 'Offline';
+        localStorage.removeItem('credentials');
+        this.currentUser = new userDTO();
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        console.error('Error Logging Out: ', err);
+      },
+    });
   }
 
   register(registerData: RegisterData): Observable<userDTO> {
@@ -64,12 +85,6 @@ export class AuthService {
           }
         })
       );
-  }
-
-  logout() {
-    localStorage.removeItem('credentials');
-    this.currentUser = new userDTO();
-    this.router.navigate(['/']);
   }
 
   checkLogin() {

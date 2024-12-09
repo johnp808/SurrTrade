@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProfileComponent implements OnInit {
   user: userDTO | null = null;
+  updatedUser: Partial<userDTO> = {};
   passwordChangeData = {
     currentPassword: '',
     newPassword: '',
@@ -42,6 +43,8 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+
+  onSaveProfile(): void {}
 
   onChangePassword(): void {
     if (

@@ -245,8 +245,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `surrtrade`;
-INSERT INTO `user` (`id`, `username`, `email`, `password`, `primary_bike`, `status`, `role`, `created_at`, `updated_at`, `last_login`, `bike_picture`, `user_picture`, `enabled`) VALUES (1, 'John', 'john@john.com', '$2a$12$z1DIljqDnOMxK1bBiq5njemZgWG6PxUROmGWiS3cSsdndM00ItCYi', 'Jetson Bolt Pro', 'online', 'admin', NULL, NULL, NULL, NULL, NULL, 1);
-INSERT INTO `user` (`id`, `username`, `email`, `password`, `primary_bike`, `status`, `role`, `created_at`, `updated_at`, `last_login`, `bike_picture`, `user_picture`, `enabled`) VALUES (2, 'Mac', 'mac@mac.com', '$2a$12$z1DIljqDnOMxK1bBiq5njemZgWG6PxUROmGWiS3cSsdndM00ItCYi', 'Surron Bee', 'offline', 'registered', NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `user` (`id`, `username`, `email`, `password`, `primary_bike`, `status`, `role`, `created_at`, `updated_at`, `last_login`, `bike_picture`, `user_picture`, `enabled`) VALUES (1, 'John', 'john@john.com', '$2a$12$z1DIljqDnOMxK1bBiq5njemZgWG6PxUROmGWiS3cSsdndM00ItCYi', 'Jetson Bolt Pro', 'online', 'admin', NULL, NULL, '2024-12-08 18:21:50', NULL, NULL, 1);
+INSERT INTO `user` (`id`, `username`, `email`, `password`, `primary_bike`, `status`, `role`, `created_at`, `updated_at`, `last_login`, `bike_picture`, `user_picture`, `enabled`) VALUES (2, 'Mac', 'mac@mac.com', '$2a$12$z1DIljqDnOMxK1bBiq5njemZgWG6PxUROmGWiS3cSsdndM00ItCYi', 'Surron Bee', 'offline', 'registered', NULL, NULL, '2024-8-08 08:08:08', NULL, NULL, 1);
 
 COMMIT;
 

@@ -7,6 +7,7 @@ export class userDTO {
   role: string;
   createdAt: Date;
   updatedAt: Date;
+  lastLogin: Date;
   bikePicture: string;
   userPicture: string;
   enabled: boolean;
@@ -20,6 +21,7 @@ export class userDTO {
     role: string = '',
     createdAt: Date = new Date(),
     updatedAt: Date = new Date(),
+    lastLogin: Date = new Date(),
     bikePicture: string = '',
     userPicture: string = '',
     enabled: boolean = true
@@ -32,6 +34,7 @@ export class userDTO {
     this.role = role;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.lastLogin = lastLogin;
     this.bikePicture = bikePicture;
     this.userPicture = userPicture;
     this.enabled = enabled;
