@@ -45,29 +45,21 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("search/{username}")
-	public ResponseEntity<UserDTO> getUserByUsername(HttpServletRequest req, HttpServletResponse res, @PathVariable("username") String username, Principal principal) {
+	@GetMapping("{username}")
+	public ResponseEntity<UserDTO> getUserByUsername(@PathVariable("username") String username, Principal principal) {
 		
 		if (principal == null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			
 		}
 		
-		User authUser = userSvc.findByUsername(principal.getName());
-		
-		if( authUser == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-		}
-		
-		User user = userSvc.findByUsername(username);
-		
-		if (user == null) {
+		User foundUser = userSvc.findByUsername(username);
+		if (foundUser == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			
 		}
-		
-		return new ResponseEntity<>(userSvc.convertToUserDTO(user), HttpStatus.OK);
+		UserDTO userDTO = userSvc.convertToUserDTO(foundUser);
+		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
 
 	@GetMapping("profile")

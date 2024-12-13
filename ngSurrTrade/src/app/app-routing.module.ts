@@ -8,16 +8,22 @@ import { RegisterComponent } from './components/user/login/register/register.com
 import { AboutComponent } from './components/pages/about/about.component';
 import { ContactComponent } from './components/pages/contact/contact.component';
 import { AccountConfirmedComponent } from './components/user/account-confirmed/account-confirmed.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'fillout', component: FilloutComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
+  {
+    path: 'user/profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'account-confirmed', component: AccountConfirmedComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         next: (res) => {
           console.log('Login successful:', res);
           this.errorMessage = '';
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/user/profile']);
         },
         error: (err) => {
           console.error('Login failed:', err);

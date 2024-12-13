@@ -16,6 +16,6 @@ export class HomeComponent implements OnInit {
   }
 
   navigateToProfile(): void {
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/user/profile']);
   }
 }
